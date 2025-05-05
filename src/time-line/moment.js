@@ -1,8 +1,7 @@
-export default class Moment {
-    constructor(date, shortTitle, summary, imageUrl) {
-        this.date = date
-        this.shortTitle = shortTitle
-        this.summary = summary
-        this.imageUrl = imageUrl
+export default class Moment extends HTMLLIElement {
+    static observedAttributes = ["date", "shortTitle", "summary", "imageUrl"]
+
+    attributeChangedCallback(name, oldValue, newValue) {
+
     }
 }

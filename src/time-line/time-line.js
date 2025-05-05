@@ -1,17 +1,12 @@
 import Moment from "./moment"
 
 export default class TimeLine extends HTMLOListElement {
-    #moments
+    static observedAttributes = ["start", "end", "scale", "orientation"]
 
-    set moments(val) {
-        
-        if(!Array.isArray(val) || val.some(m => !(m instanceof Moment)))
-            throw new Error();
-
-        this.#moments = val
-    }
-
-    get moments() {return this.#moments}
+    start
+    end
+    scale
+    orientation
 
     constructor() {
         super()
@@ -19,5 +14,9 @@ export default class TimeLine extends HTMLOListElement {
 
     connectedCallback() {
 
+    }
+
+    attributeChangedCallback(name, oldValue, newValue) {
+        
     }
 }
