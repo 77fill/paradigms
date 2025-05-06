@@ -16,8 +16,9 @@
       :end="new Date('1990-01-01')" 
       :scale="new Scale(50, Unit.PIXEL, 1, Unit.YEAR)" 
       :step="new Duration(5, Unit.YEAR)"
+      v-slot="{yearToX}"
       >
-      <Moment point-in-time="1968" short-title="Structured Programming">
+      <Moment :point-in-time="new Date('1968-01-01')" short-title="Structured Programming" :year-to-x="yearToX">
         "Go To Statement Considered Harmful" open letter in 1968 by Dutch computer scientist Edsger W. Dijkstra
       </Moment>
     </TimeLine>

@@ -1,5 +1,5 @@
 <script setup>
-    import {computed} from "vue"
+    import {computed, ref} from "vue"
     import Duration from "../domain/duration.js"
     import Scale from "../domain/scale.js"
     import Step from "../domain/step.js"
@@ -7,10 +7,10 @@
     const widthInPx = 200
     const MILLIS_IN_A_YEAR = 1000*60*60*24*365
 
-    const props = defineProps({
+    const {start, end, step, scale} = defineProps({
         width: String,
         height: String,
-        start: Date
+        start: Date,
         end: Date,
         step: Duration,
         scale: Scale
@@ -25,7 +25,7 @@
         const leftSteps = [
             new Step(-widthInPx/2,start),
             ...[...Array(stepCountOnOneSide).keys()]
-                .reversed()
+                .reverse()
                 .map(stepNr => 
                     new Step(
                         -stepNr*stepInPx,
@@ -50,12 +50,12 @@
         return [...leftSteps, centerStep, ...rightSteps]
     })
 
-    const yearToX = ref(
+    const yearToX = 
         (year) => {
             const yearsFromStart = year - start.getFullYear()
             return -widthInPx/2 + scale.toModel(yearsFromStart)
         }
-    )
+    
 </script>
 
 <template>
