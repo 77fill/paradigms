@@ -2,7 +2,8 @@
     import {computed, ref} from "vue"
     import Duration from "../domain/duration.js"
     import Scale from "../domain/scale.js"
-    import Step from "../domain/step.js"
+    import StepData from "../domain/step.js"
+    import Step from "./Step.vue"
 
     const widthInPx = 200
     const MILLIS_IN_A_YEAR = 1000*60*60*24*365
@@ -23,28 +24,28 @@
         const centerDate = new Date(start.getTime() + (widthInYears/2)*MILLIS_IN_A_YEAR) 
 
         const leftSteps = [
-            new Step(-widthInPx/2,start),
+            new StepData(-widthInPx/2,start),
             ...[...Array(stepCountOnOneSide).keys()]
                 .reverse()
                 .map(stepNr => 
-                    new Step(
+                    new StepData(
                         -stepNr*stepInPx,
                         new Date(centerDate.getTime() - stepNr*step.value*MILLIS_IN_A_YEAR)
                     )
                 )
         ]
 
-        const centerStep = new Step(0, centerDate)
+        const centerStep = new StepData(0, centerDate)
 
         const rightSteps = [
             ...[...Array(stepCountOnOneSide).keys()]
                 .map(stepNr => 
-                    new Step(
+                    new StepData(
                         stepNr*stepInPx,
                         new Date(centerDate.getTime() + stepNr*step.value*MILLIS_IN_A_YEAR)
                     )
                 ),
-            new Step(widthInPx/2,stop),
+            new StepData(widthInPx/2,stop),
         ]
         
         return [...leftSteps, centerStep, ...rightSteps]
@@ -59,9 +60,9 @@
 </script>
 
 <template>
-    <svg :width :height xmlns="http://www.w3.org/2000/svg" :viewBox="'-100 -50 '+widthInPx+' 100'">
+    <svg :width :height xmlns="http://www.w3.org/2000/svg" :viewBox="'-100 -50 '+widthInPx+' 100'" preserveAspectRatio="none">
         <line x1="-100" y1="0" x2="100" y2="0" stroke="black" />
-        <line v-for="step in steps" :x1="step.x" y1="5" :x2="step.x" y2="-5" stroke="black"/>
+        <Step v-for="step in steps" :x="step.x" :text="step.date" />
         
         <slot :year-to-x="yearToX"/>
     </svg>
