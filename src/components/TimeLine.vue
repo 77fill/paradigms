@@ -5,6 +5,7 @@
     import Step from "../domain/step.js"
 
     const widthInPx = 200
+    const MILLIS_IN_A_YEAR = 1000*60*60*24*365
 
     const props = defineProps({
         width: String,
@@ -16,7 +17,6 @@
     })
 
     const steps = computed(() => {
-        const MILLIS_IN_A_YEAR = 1000*60*60*24*365
         const stepInPx = scale.toModel(step.value)
         const widthInYears = end.getFullYear() - start.getFullYear()
         const stepCountOnOneSide = Math.floor( (widthInPx/2) / stepInPx )
@@ -49,6 +49,13 @@
         
         return [...leftSteps, centerStep, ...rightSteps]
     })
+
+    const yearToX = ref(
+        (year) => {
+            const yearsFromStart = year - start.getFullYear()
+            return -widthInPx/2 + scale.toModel(yearsFromStart)
+        }
+    )
 </script>
 
 <template>
@@ -56,7 +63,7 @@
         <line x1="-100" y1="0" x2="100" y2="0" stroke="black" />
         <line v-for="step in steps" :x1="step.x" y1="5" :x2="step.x" y2="-5" stroke="black"/>
         
-        <slot />
+        <slot :year-to-x="yearToX"/>
     </svg>
 </template>
 
