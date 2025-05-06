@@ -13,5 +13,6 @@
 <style scoped>
     .moment-text {
         transform: translate(-50%, -50%);
+        transform-box: content-box;
     }
 </style>

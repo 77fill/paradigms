@@ -21,11 +21,13 @@
         const stepInPx = scale.toModel(step.value)
         const widthInYears = end.getFullYear() - start.getFullYear()
         const stepCountOnOneSide = Math.floor( (widthInPx/2) / stepInPx )
+        console.log("stepCountOnOneSide: "+stepCountOnOneSide)
         const centerDate = new Date(start.getTime() + (widthInYears/2)*MILLIS_IN_A_YEAR) 
 
         const leftSteps = [
             new StepData(-widthInPx/2,start),
             ...[...Array(stepCountOnOneSide).keys()]
+                .map(i => i+1)
                 .reverse()
                 .map(stepNr => 
                     new StepData(
@@ -39,13 +41,14 @@
 
         const rightSteps = [
             ...[...Array(stepCountOnOneSide).keys()]
+                .map(i => i+1)
                 .map(stepNr => 
                     new StepData(
                         stepNr*stepInPx,
                         new Date(centerDate.getTime() + stepNr*step.value*MILLIS_IN_A_YEAR)
                     )
                 ),
-            new StepData(widthInPx/2,stop),
+            new StepData(widthInPx/2,end),
         ]
         
         return [...leftSteps, centerStep, ...rightSteps]
@@ -62,7 +65,7 @@
 <template>
     <svg :width :height xmlns="http://www.w3.org/2000/svg" :viewBox="'-100 -50 '+widthInPx+' 100'" preserveAspectRatio="none">
         <line x1="-100" y1="0" x2="100" y2="0" stroke="black" />
-        <Step v-for="step in steps" :x="step.x" :text="step.date" />
+        <Step v-for="step in steps" :x="step.x" :date="step.date" />
         
         <slot :year-to-x="yearToX"/>
     </svg>
