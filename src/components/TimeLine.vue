@@ -6,6 +6,7 @@
     import Step from "./Step.vue"
 
     const widthInPx = 200
+    const margin = 25
     const MILLIS_IN_A_YEAR = 1000*60*60*24*365
 
     const {start, end, step, scale} = defineProps({
@@ -59,12 +60,13 @@
             const yearsFromStart = year - start.getFullYear()
             return -widthInPx/2 + scale.toModel(yearsFromStart)
         }
-    
+
+    const viewBox = `${-widthInPx/2 - margin} -50 ${widthInPx+2*margin} 100`
 </script>
 
 <template>
-    <svg :width :height xmlns="http://www.w3.org/2000/svg" :viewBox="'-100 -50 '+widthInPx+' 100'" preserveAspectRatio="none">
-        <line x1="-100" y1="0" x2="100" y2="0" stroke="black" />
+    <svg :width :height xmlns="http://www.w3.org/2000/svg" :viewBox preserveAspectRatio="none">
+        <line :x1="-widthInPx/2" y1="0" :x2="widthInPx/2" y2="0" stroke="black" />
         <Step v-for="step in steps" :x="step.x" :date="step.date" />
         
         <slot :year-to-x="yearToX"/>
