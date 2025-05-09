@@ -5,54 +5,25 @@
     import StepData from "../domain/step.js"
     import Step from "./Step.vue"
 
-    const widthInPx = 200
-    const margin = 25
-    const MILLIS_IN_A_YEAR = 1000*60*60*24*365
-
-    const {start, end, step, scale} = defineProps({
+    const {start, end, step, scale, marginPercentage} = defineProps({
         width: String,
         height: String,
         start: {validator: moment.isMoment},
         end: {validator: moment.isMoment},
         step: {validator: moment.isDuration},
-        scale: Scale
+        scale: Scale,
+        marginPercentage: {
+          default: () => 0.1,
+          validator: (val) => 0 <= val && val <= 0.8
+        }
     })
 
-    const steps = computed(() => {
-        const stepInPx = scale.toModel(step)
-        const widthInYears = end.year() - start.year()
-        const stepCountOnOneSide = Math.floor( (widthInPx/2) / stepInPx )
-        const centerDate = start.add(widthInYears/2, "years")
+    const widthInYears = computed(() => end.year() - start.year())
+    const widthInViewBox = computed(() => scale.toModel(widthInYears.value, 'years'))
+    const margin = computed(() => widthInViewBox.value * marginPercentage)
+    const marginBoxWidthInViewBox = computed(() => widthInViewBox.value + margin.value * 2)
 
-        const leftSteps = [
-            new StepData(-widthInPx/2,start),
-            ...[...Array(stepCountOnOneSide).keys()]
-                .map(i => i+1)
-                .reverse()
-                .map(stepNr => 
-                    new StepData(
-                        -stepNr*stepInPx,
-                        centerDate.subtract(stepNr*step.as("years"))
-                    )
-                )
-        ]
-
-        const centerStep = new StepData(0, centerDate)
-
-        const rightSteps = [
-            ...[...Array(stepCountOnOneSide).keys()]
-                .map(i => i+1)
-                .map(stepNr => 
-                    new StepData(
-                        stepNr*stepInPx,
-                        centerDate.add(stepNr*step.as("years"))
-                    )
-                ),
-            new StepData(widthInPx/2,end),
-        ]
-        
-        return [...leftSteps, centerStep, ...rightSteps]
-    })
+    const steps = computed(() => StepData.getStepsFor(start, end, step, scale))
 
     const yearToX = 
         (year) => {
