@@ -1,13 +1,15 @@
 <script setup>
-    const props = defineProps({
-        pointInTime: Date,
+    import moment from 'moment'
+
+    defineProps({
+        pointInTime: {validator: moment.isMoment},
         shortTitle: String,
         yearToX: Function
     })
 </script>
 
 <template>
-    <text :x="yearToX(pointInTime.getFullYear())" y="-25" class="moment-text"/>
+    <text :x="yearToX(pointInTime.year())" y="-25" class="moment-text"/>
 </template>
 
 <style scoped>

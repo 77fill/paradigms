@@ -1,3 +1,5 @@
+import moment from 'moment'
+
 export default class Scale {
     realUnit
     ratioModelPerReal
@@ -10,8 +12,8 @@ export default class Scale {
         this.ratioModelPerReal = modelValue / realValue
     }
 
-    toModel(realValue) {
-        return realValue * this.ratioModelPerReal
+    toModel(realValue, realUnit) {
+        return moment.duration(realValue, realUnit).as(this.realUnit) * this.ratioModelPerReal
     }
 
     toReal(modelValue) {

@@ -1,13 +1,15 @@
 <script setup>
+    import moment from "moment";
+
     defineProps({
         x: String,
-        date: Date
+        date: {validator: moment.isMoment}
     })
 </script>
 
 <template>
     <line :x1="x" y1="5" :x2="x" y2="-5" stroke="black" />
-    <text :x y="-8" class="step-text" textLength="10" lengthAdjust="spacingAndGlyphs">{{ date.getFullYear() }}</text>
+    <text :x y="-8" class="step-text" textLength="10" lengthAdjust="spacingAndGlyphs">{{ date.year() }}</text>
 </template>
 
 <style scoped>

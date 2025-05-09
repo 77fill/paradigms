@@ -1,6 +1,6 @@
 <script setup>
-    import {computed, ref} from "vue"
-    import Duration from "../domain/duration.js"
+    import {computed} from "vue"
+    import moment from "moment"
     import Scale from "../domain/scale.js"
     import StepData from "../domain/step.js"
     import Step from "./Step.vue"
@@ -12,18 +12,17 @@
     const {start, end, step, scale} = defineProps({
         width: String,
         height: String,
-        start: Date,
-        end: Date,
-        step: Duration,
+        start: {validator: moment.isMoment},
+        end: {validator: moment.isMoment},
+        step: {validator: moment.isDuration},
         scale: Scale
     })
 
     const steps = computed(() => {
-        const stepInPx = scale.toModel(step.value)
-        const widthInYears = end.getFullYear() - start.getFullYear()
+        const stepInPx = scale.toModel(step)
+        const widthInYears = end.year() - start.year()
         const stepCountOnOneSide = Math.floor( (widthInPx/2) / stepInPx )
-        console.log("stepCountOnOneSide: "+stepCountOnOneSide)
-        const centerDate = new Date(start.getTime() + (widthInYears/2)*MILLIS_IN_A_YEAR) 
+        const centerDate = start.add(widthInYears/2, "years")
 
         const leftSteps = [
             new StepData(-widthInPx/2,start),
@@ -33,7 +32,7 @@
                 .map(stepNr => 
                     new StepData(
                         -stepNr*stepInPx,
-                        new Date(centerDate.getTime() - stepNr*step.value*MILLIS_IN_A_YEAR)
+                        centerDate.subtract(stepNr*step.as("years"))
                     )
                 )
         ]
@@ -46,7 +45,7 @@
                 .map(stepNr => 
                     new StepData(
                         stepNr*stepInPx,
-                        new Date(centerDate.getTime() + stepNr*step.value*MILLIS_IN_A_YEAR)
+                        centerDate.add(stepNr*step.as("years"))
                     )
                 ),
             new StepData(widthInPx/2,end),
@@ -57,7 +56,7 @@
 
     const yearToX = 
         (year) => {
-            const yearsFromStart = year - start.getFullYear()
+            const yearsFromStart = year - start.year()
             return -widthInPx/2 + scale.toModel(yearsFromStart)
         }
 
