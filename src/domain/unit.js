@@ -1,4 +1,3 @@
 export default {
-    YEAR: "YEAR",
-    PIXEL: "PIXEL"
+    VIEW_BOX_UNIT: "VIEW_BOX_UNIT",
 }

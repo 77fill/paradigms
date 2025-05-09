@@ -16,7 +16,7 @@
       height="200px" 
       :start="moment('1940')"
       :end="moment('1990')"
-      :scale="new Scale(50, Unit.PIXEL, 1, 'year')"
+      :scale="new Scale(50, Unit.VIEW_BOX_UNIT, 1, 'year')"
       :step="moment.duration(5, 'years')"
       v-slot="{yearToX}"
       >
