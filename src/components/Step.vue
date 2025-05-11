@@ -3,7 +3,8 @@
 
     defineProps({
         x: Number,
-        date: {validator: moment.isMoment}
+        date: {validator: moment.isMoment},
+        underline: {type: Boolean, default: false},
     })
 </script>
 
@@ -16,5 +17,6 @@
     .step-text {
         transform: translate(-50%,-60%);
         transform-box: content-box;
+        text-decoration: v-bind('underline?"underline":none');
     }
 </style>
