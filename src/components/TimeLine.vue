@@ -28,15 +28,15 @@
     const yearToX = 
         (year) => {
             const yearsFromStart = year - start.year()
-            return -widthInPx/2 + scale.toModel(yearsFromStart)
+            return -widthInViewBox.value/2 + scale.toModel(yearsFromStart, 'years')
         }
 
-    const viewBox = `${-widthInPx/2 - margin} -50 ${widthInPx+2*margin} 100`
+    const viewBox = `${-widthInViewBox.value/2 - margin.value} -50 ${widthInViewBox.value+2*margin.value} 100`
 </script>
 
 <template>
     <svg :width :height xmlns="http://www.w3.org/2000/svg" :viewBox preserveAspectRatio="none">
-        <line :x1="-widthInPx/2" y1="0" :x2="widthInPx/2" y2="0" stroke="black" />
+        <line :x1="-widthInViewBox/2" y1="0" :x2="widthInViewBox/2" y2="0" stroke="black" />
         <Step v-for="step in steps" :x="step.x" :date="step.date" />
         
         <slot :year-to-x="yearToX"/>
@@ -44,5 +44,8 @@
 </template>
 
 <style scoped>
-
+  * {
+    font-family: sans-serif;
+    font-size: 16px;
+  }
 </style>

@@ -9,7 +9,9 @@
 </script>
 
 <template>
-    <text :x="yearToX(pointInTime.year())" y="-25" class="moment-text"/>
+  <text :x="yearToX(pointInTime.year())" y="-25" :textLength="shortTitle.length + 'em'" lengthAdjust="spacingAndGlyphs" class="moment-text">
+    {{shortTitle}}
+  </text>
 </template>
 
 <style scoped>
