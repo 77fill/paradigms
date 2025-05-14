@@ -1,6 +1,7 @@
 <script setup>
   import {valid} from "js.spec";
   import {isIncident} from "@/domain/timeline-data.spec.js";
+  import IncidentInfoDialogActions from "@/components/IncidentInfoDialogActions.vue";
 
   defineProps({
     data: {validator: valid.bind(undefined, isIncident)}
@@ -8,7 +9,7 @@
 </script>
 
 <template>
-  <v-dialog max-width="500">
+  <v-dialog max-width="800">
     <template v-slot:activator="{ props: activatorProps }">
       <v-card :title="data.title"
               v-bind="activatorProps"
@@ -17,20 +18,9 @@
 
     <template v-slot:default="{ isActive }">
       <v-card :title="data.title" :text="data.summary">
-        <v-card-actions>
-          <v-spacer></v-spacer>
-
-          <template v-for="link in data.seeAlsoLinks">
-            <a :href="link[0]">
-              {{link[1]}}
-            </a>
-          </template>
-
-          <v-btn
-              text="Close"
-              @click="isActive.value = false"
-          ></v-btn>
-        </v-card-actions>
+        <incident-info-dialog-actions
+            :data
+            @close="isActive.value = false"/>
       </v-card>
     </template>
   </v-dialog>
