@@ -15,8 +15,8 @@
     </template>
 
     <template v-slot:opposite>
-      <v-chip variant="elevated">
-        {{ data.date.toString() }}
+      <v-chip variant="elevated" size="large">
+        {{ data.date.year() }}
       </v-chip>
     </template>
 
