@@ -2,6 +2,10 @@
 
 Work in progress!
 
+## See in action
+
+[https://pschmalz.dev/timeline](https://pschmalz.dev/timeline)
+
 ## Motivation
 
 Programming paradigms and their historical development are an interesting topic. 
