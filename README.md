@@ -1,35 +1,21 @@
-# .
+# Paradigms
 
-This template should help get you started developing with Vue 3 in Vite.
+Work in progress!
 
-## Recommended IDE Setup
+## Motivation
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+Programming paradigms and their historical development are an interesting topic. 
+I just wanted to provide a timeline as I learn, step by step.
 
-## Customize configuration
+## Tech Stack
 
-See [Vite Configuration Reference](https://vite.dev/config/).
+- Vuejs
+- Vuetify
 
-## Project Setup
+libs:
+- momentjs
+- js.spec
 
-```sh
-npm install
-```
+## License
 
-### Compile and Hot-Reload for Development
-
-```sh
-npm run dev
-```
-
-### Compile and Minify for Production
-
-```sh
-npm run build
-```
-
-### Run Unit Tests with [Vitest](https://vitest.dev/)
-
-```sh
-npm run test:unit
-```
+See 'LICENSE' -> it's MIT
