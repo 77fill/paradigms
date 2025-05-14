@@ -11,7 +11,10 @@ import {md2} from "vuetify/blueprints";
 const vuetify = createVuetify({
     components,
     directives,
-    blueprint: md2
+    blueprint: md2,
+    theme: {
+        defaultTheme: 'dark'
+    }
 })
 
 createApp(App).use(vuetify).mount('#app')
