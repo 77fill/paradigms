@@ -3,9 +3,11 @@
 </script>
 
 <template>
-  <main>
+  <v-app>
+    <v-main>
 
-  </main>
+    </v-main>
+  </v-app>
 </template>
 
 <style scoped>
