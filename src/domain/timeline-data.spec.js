@@ -1,8 +1,5 @@
-import {valid} from "js.spec";
-import timelineData from "@/domain/timeline-data.js";
 import {spec, symbol} from "js.spec";
 import moment from "moment";
-import {test, expect} from "vitest";
 
 /**
  * Highest and default importance: 1<br>
@@ -15,6 +12,8 @@ const date = (m) => {
 }
 
 const url = spec.string
+const link = spec.tuple("link", url, spec.string)
+const links = spec.collection("links", link)
 const urls = spec.collection("urls", url)
 const tags = spec.collection("tags", spec.string)
 const incidentId = spec.or("incident id", {
@@ -22,22 +21,20 @@ const incidentId = spec.or("incident id", {
     complexId: spec.tuple("complex incident id", date, spec.string),
 })
 
-const incident = spec.map("timeline incident", {
+export const isIncident = spec.map("timeline incident", {
     date: date,
     title: spec.string,
     summary: spec.string,
     [symbol.optional]: {
         importance: importance,
         iconUrl: url,
-        seeAlsoUrls: urls,
+        seeAlsoLinks: links,
         seeAlsoIncidents: spec.collection("incident ids", incidentId),
         tags: tags,
         idSuffix: spec.string,
     }
 })
 
-const isTimelineData = spec.collection("timeline data", incident)
+export const hasIcon = spec.map("has icon url", {iconUrl: url})
 
-test("validates the timeline data", () => {
-    expect(valid(isTimelineData, timelineData)).toBe(true)
-})
+export const isTimelineData = spec.collection("timeline data", isIncident)

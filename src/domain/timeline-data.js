@@ -11,6 +11,8 @@ export default [
         summary: 'Publication of the influential "Go To Statement Considered Harmful" open letter in 1968' +
             ' by Dutch computer scientist Edsger W. Dijkstra,' +
             ' who coined the term "structured programming".',
-        seeAlsoUrls: ["https://www.cs.utexas.edu/~EWD/ewd02xx/EWD215.PDF"]
+        seeAlsoLinks: [
+            ["https://www.cs.utexas.edu/~EWD/ewd02xx/EWD215.PDF", "PDF: Go To Statement Considered Harmful" ],
+        ]
     }
 ]
