@@ -6,12 +6,14 @@
   defineProps({
     data: {validator: valid.bind(undefined, isIncident)}
   })
+
+  const iconSize = "120px"
 </script>
 
 <template>
-  <v-timeline-item>
+  <v-timeline-item :size="iconSize">
     <template v-slot:icon v-if="valid(hasIcon, data)">
-      <v-img :src="data.iconUrl" inline width="30px" height="30px"/>
+      <v-img class="icon" :src="data.iconUrl" inline :width="iconSize" :height="iconSize"/>
     </template>
 
     <template v-slot:opposite>
@@ -27,5 +29,7 @@
 </template>
 
 <style scoped>
-
+  .icon {
+    border-radius: 50%;
+  }
 </style>
