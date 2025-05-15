@@ -8,10 +8,16 @@
    height="220"
    viewBox="0 0 220 220"
    xmlns="http://www.w3.org/2000/svg"
-   xmlns:svg="http://www.w3.org/2000/svg">
+   xmlns:svg="http://www.w3.org/2000/svg"
+   >
+  <style>
+    path {
+      stroke-width: 3px!important;
+    }
+  </style>
   <defs
      id="defs6" />
-  <rect x="0" y="0" width="220" height="220" fill="violet" />
+  <rect x="0" y="0" width="220" height="220" fill="#ffaaff" />
   <g
      id="g8"
      transform="matrix(1.3333333,0,0,-1.3333333,0,173.40667)">
