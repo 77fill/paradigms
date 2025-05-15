@@ -4,7 +4,7 @@ Work in progress!
 
 ## See in action
 
-[https://pschmalz.dev/timeline](https://pschmalz.dev/timeline)
+[https://timeline.pschmalz.dev](https://timeline.pschmalz.dev)
 
 ## Motivation
 
